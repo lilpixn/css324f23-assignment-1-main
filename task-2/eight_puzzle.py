@@ -48,7 +48,27 @@ def h1(s):
             res += 1
     return res
 
+
+
 def h3(s):
+    goal = (1, 2, 3, 4, 5, 6, 7, 8, 0)
     # implement this function
     board, _, _ = s
-    return 0
+    res = 0
+
+    # Iterate through the puzzle tiles in the current state
+    for i in range(3):
+        for j in range(3):
+            tile = board[i*3 + j]
+            if tile != 0:  # Skip the empty tile (represented as 0)
+                # Calculate the target row and column for the tile
+                target_row = (tile - 1) // 3
+                target_col = (tile - 1) % 3
+                # Calculate the number of tiles out of their target row
+                row_diff = abs(i - target_row)
+                # Calculate the number of tiles out of their target column
+                col_diff = abs(j - target_col)
+                # Add the row_diff and col_diff to the heuristic value
+                res += row_diff + col_diff
+
+    return res
